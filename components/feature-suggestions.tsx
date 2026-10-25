@@ -17,7 +17,7 @@ export default function FeatureSuggestions({ onBack }: { onBack: () => void }) {
   const [success, setSuccess] = useState("");
 
   const request = useCallback(async (method: "GET" | "POST", body?: { title: string; description: string }) => {
-    const user = auth.currentUser;
+    const user = auth?.currentUser;
     if (!user) throw new Error("Please sign in to use Feature Suggestions.");
     const token = await user.getIdToken();
     const response = await fetch("/api/feature-suggestions", {
