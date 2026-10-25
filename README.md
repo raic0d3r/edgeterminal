@@ -84,7 +84,7 @@ Important:
 - The summary cards and economic calendar in this starter still contain demo/sample content and should not be represented as live data.
 
 
-## TradingHelp365-inspired UI redesign
+## EdgeTerminal-inspired UI redesign
 
 The dashboard layout has been redesigned to follow the supplied visual reference: narrow icon rail, breaking-news ticker, asset/timeframe controls, market-status banner, session tiles, combined TradingView chart + risk calculator, and expandable feature rows. The brand and implementation are original; this is not a pixel-perfect copy.
 
