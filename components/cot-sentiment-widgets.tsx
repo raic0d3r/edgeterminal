@@ -15,11 +15,14 @@ export default function CotSentimentWidgets({ asset, theme = "dark" }: Props) {
       if (event.origin !== "https://tradersentiments.com") return;
       if (event.data?.type !== "tradersentiments-widget-resize") return;
       const id = event.data.widgetId;
-      const frames = [
-        document.getElementById("ts-cot-widget"),
-        document.getElementById("ts-sentiment-widget"),
-      ];
-      const target = frames.find((frame) => frame?.contentWindow === event.source);
+		const frames = [
+		  document.getElementById("ts-cot-widget") as HTMLIFrameElement | null,
+		  document.getElementById("ts-sentiment-widget") as HTMLIFrameElement | null,
+		];
+
+		const target = frames.find(
+		  (frame) => frame?.contentWindow === event.source
+		);
       if (target && Number.isFinite(Number(event.data.height))) {
 		if (target.id === "ts-sentiment-widget") {
 		  target.style.height = "113px";
