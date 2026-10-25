@@ -1,0 +1,12 @@
+node_modules
+.next
+out
+.env.local
+firebase-service-account.json
+.DS_Store
+
+# Local SQLite chat database
+data/*.sqlite
+data/*.sqlite-shm
+data/*.sqlite-wal
+

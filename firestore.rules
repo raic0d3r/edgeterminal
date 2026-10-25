@@ -1,0 +1,27 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      // Users can read only their own profile.
+      allow read: if request.auth != null && request.auth.uid == userId;
+
+      // Registration may create a basic member profile only.
+      // Clients cannot create an admin/VIP profile or set a disabled status.
+      allow create: if request.auth != null
+        && request.auth.uid == userId
+        && request.resource.data.role == 'member'
+        && request.resource.data.status == 'active'
+        && request.resource.data.keys().hasOnly([
+          'displayName', 'email', 'role', 'status', 'createdAt'
+        ]);
+
+      // Profile updates and role changes are disabled until a trusted admin flow is implemented.
+      allow update, delete: if false;
+    }
+
+    // Deny everything else unless explicit rules are added.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
