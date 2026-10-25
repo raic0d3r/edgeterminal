@@ -24,16 +24,23 @@ export default function AuthGate({ children }: { children: React.ReactNode }) {
     window.addEventListener("edge-terminal-sign-out", logoutHandler);
     const unsubscribe = onAuthStateChanged(auth, async (nextUser) => {
       setUser(nextUser);
-      if (nextUser) {
-        const ref = doc(db, "users", nextUser.uid);
-        try {
-          const snap = await getDoc(ref);
-          setProfile(snap.exists() ? snap.data() as UserProfile : null);
-        } catch (profileError) {
-          console.error("Could not load user profile. Check Firestore rules.", profileError);
-          setProfile(null);
-        }
-      } else setProfile(null);
+	  if (nextUser) {
+		  if (!db) {
+			setProfile(null);
+			return;
+		  }
+
+		  const ref = doc(db, "users", nextUser.uid);
+
+		  try {
+			const snap = await getDoc(ref);
+			setProfile(snap.exists() ? snap.data() as UserProfile : null);
+		  } catch (error) {
+			console.error("Failed to load user profile:", error);
+			setProfile(null);
+		  }
+		}
+		else setProfile(null);
       setLoading(false);
     });
     return () => {
