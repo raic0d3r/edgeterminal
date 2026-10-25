@@ -338,7 +338,7 @@ function Dashboard() {
           <button onClick={()=>setDocumentationOpen(true)}><BookOpen size={18}/> Documentation</button>
           <button onClick={()=>{setFeatureSuggestionsOpen(true);setActiveChat(null);setWorkspaceEmpty(false);}}><Lightbulb size={18}/> Feature Suggestions</button>
         </nav>}
-{auth.currentUser?.email &&
+{auth?.currentUser?.email &&
   (process.env.NEXT_PUBLIC_ADMIN_EMAILS || "")
     .split(",")
     .map((email) => email.trim().toLowerCase())
