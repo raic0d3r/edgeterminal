@@ -262,7 +262,7 @@ export default function OrderFlowFootprint({ asset = "XAU/USD", interval = "5min
     </div>
     {showSignals && <div className="ofp-signalbar"><b className={delta < 0 ? "negative" : "positive"}>↘ {delta < 0 ? "SELLING PRESSURE (EST.)" : "BUYING PRESSURE (EST.)"}</b><span>Volume-at-price estimate</span><strong>{price === null ? "Price unavailable" : "$" + fmt(price)}</strong><small>{status === "live" ? `Source: ${source}` : "Waiting for verified live provider data"}</small></div>}
     <div ref={chartWrapRef} className="ofp-chart-wrap" onPointerDown={onChartPointerDown} onPointerMove={onChartPointerMove} onPointerUp={onChartPointerUp} onPointerCancel={onChartPointerUp}>
-      <div className="ofp-chart" style={{ width: `${Math.max(wrapWidth, 1100) * zoom / 100}px`, minWidth: `${Math.max(wrapWidth, 1100) * zoom / 100}px`, height: `${480 * zoom / 100}px`, "--ofp-zoom": Math.max(0.65, Math.min(1.6, zoom / 100)) }}>
+      <div className="ofp-chart" style={{ width: `${Math.max(wrapWidth, 1100) * zoom / 100}px`, minWidth: `${Math.max(wrapWidth, 1100) * zoom / 100}px`, height: `${480 * zoom / 100}px`, "--ofp-zoom": Math.max(0.65, Math.min(1.6, zoom / 100)) } as React.CSSProperties}>
         <div className="ofp-price-axis">{priceLevels.map((p,i)=><div key={i} style={{ top: `${i/(rows-1)*100}%` }}>${fmt(p)}</div>)}</div>
         <div className="ofp-grid">{priceLevels.map((p,i)=><div key={i} className="ofp-gridline" style={{ top: `${i/(rows-1)*100}%` }} />)}
           {indicators.pocBox && poc !== null && poc >= minPrice && poc <= maxPrice && <div className="ofp-vpoc-line" style={{ top: `${(maxPrice-poc)/range*100}%` }}><span>vPOC EST. ${fmt(poc)}</span></div>}
